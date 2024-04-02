@@ -1,0 +1,83 @@
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Selise {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome", "D:\\Java Projects\\chromedriver-win64");
+
+		WebDriver driver = new ChromeDriver();
+		
+		driver.get("https://www.amazon.com/");
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span#nav-link-accountList-nav-line-1")));
+		
+		driver.findElement(By.cssSelector("span#nav-link-accountList-nav-line-1")).click();
+		
+		driver.findElement(By.cssSelector("input#ap_email")).sendKeys("sharikanargis@gmail.com");
+		driver.findElement(By.cssSelector("input#continue")).click();
+		
+		driver.findElement(By.cssSelector("input#ap_password")).sendKeys("Amarakash123");
+		
+		WebElement chkbox = driver.findElement(By.name("rememberMe"));
+		
+		if(!chkbox.isSelected()) {
+			chkbox.click();
+		}
+		
+		driver.findElement(By.cssSelector("input#signInSubmit")).click();
+		
+		WebElement searchDropdown = driver.findElement(By.id("searchDropdownBox"));
+		
+		Select selectCategory = new Select(searchDropdown);
+		
+		selectCategory.selectByVisibleText("Books");
+		
+		WebElement searchInput = driver.findElement(By.id("twotabsearchtextbox"));
+		
+		searchInput.sendKeys("Java Programming");
+		
+		searchInput.submit();
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		WebElement firstProductElement = driver.findElement(By.xpath("//img[@alt='Head First Java: A Brain-Friendly Guide']"));
+		
+	    firstProductElement.click();
+	    
+	   try {
+	           Thread.sleep(5000);
+	      } catch (InterruptedException e) {
+	          e.printStackTrace();
+	        }
+
+	        
+	       WebElement addToCartButton = driver.findElement(By.id("add-to-cart-button"));
+	        addToCartButton.click();
+	        
+	        try {
+	            Thread.sleep(5000);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+	        driver.quit();
+		
+	}
+
+}
